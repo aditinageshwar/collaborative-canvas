@@ -15,3 +15,15 @@ A real-time multi-user drawing application built with JavaScript, HTML5 Canvas, 
 - Draw simultaneously; changes sync in real-time.
 - Move the mouse to see cursors.
 - Click "Undo" to undo the last global action.
+
+## Known Limitations/Bugs
+
+- No redo functionality.
+- Drawings are not persisted (lost on server restart).
+- High latency may cause slight cursor lag.
+- Canvas size is fixed; no resizing.
+- Undo may cause brief redraw flashes.
+
+## Time Spent
+
+Approximately 8-10 hours (including planning, implementation, and testing).

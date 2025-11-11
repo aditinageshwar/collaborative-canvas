@@ -1,6 +1,6 @@
 class WebSocketClient {
   constructor() {
-    this.socket = io('http://localhost:5502');
+    this.socket = io();
     this.onInit = null;
     this.onDraw = null;
     this.onCursor = null;

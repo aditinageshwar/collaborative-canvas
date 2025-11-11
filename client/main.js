@@ -18,6 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('strokeWidth').addEventListener('input', (e) => canvasManager.setStrokeWidth(e.target.value));
   document.getElementById('undo').addEventListener('click', () => canvasManager.undo());
 
+  document.getElementById('rectangle').addEventListener('click', () => canvasManager.setTool('rectangle'));
+  document.getElementById('circle').addEventListener('click', () => canvasManager.setTool('circle'));
+  document.getElementById('line').addEventListener('click', () => canvasManager.setTool('line'));
+  document.getElementById('text').addEventListener('click', () => canvasManager.setTool('text'));
+  
+  document.getElementById('image').addEventListener('click', () => {
+    canvasManager.setTool('image');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => canvasManager.loadImage(e.target.files[0]);
+    input.click();
+  });
+
   // WebSocket handlers
   wsClient.onInit = (data) => {
     document.getElementById('loading').style.display = 'none';

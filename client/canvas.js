@@ -138,54 +138,56 @@ class CanvasManager {
   }
 }
   
-  renderShape(startX, startY, endX, endY, type, color, strokeWidth, preview = false) {
-    this.ctx.strokeStyle = color;
-    this.ctx.lineWidth = strokeWidth;
-    this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = 'round';
-    if (type === 'rectangle') {
-      this.ctx.strokeRect(startX, startY, endX - startX, endY - startY);
-    } else if (type === 'circle') {
-      const radius = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
-      this.ctx.beginPath();
-      this.ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
-      this.ctx.stroke();
-    } else if (type === 'line') {
-      this.ctx.beginPath();
-      this.ctx.moveTo(startX, startY);
-      this.ctx.lineTo(endX, endY);
-      this.ctx.stroke();
+ renderShape(startX, startY, endX, endY, type, color, strokeWidth, preview = false) {
+  this.ctx.strokeStyle = color;
+  this.ctx.lineWidth = strokeWidth;
+  this.ctx.lineCap = 'round';
+  this.ctx.lineJoin = 'round';
+  if (type === 'rectangle') {
+    this.ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+  } 
+  else if (type === 'circle') {
+    const radius = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+    this.ctx.beginPath();
+    this.ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+    this.ctx.stroke();
+  } 
+  else if (type === 'line') {
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX, startY);
+    this.ctx.lineTo(endX, endY);
+    this.ctx.stroke();
+  }
+}
+
+redraw() {
+  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  this.history.forEach(op => {
+  if (op.type === 'brush' || op.type === 'eraser') {
+    this.renderPath(op.data.path, op.type, op.data.color, op.data.strokeWidth);
+  } 
+  else if (['rectangle', 'circle', 'line'].includes(op.type)) {
+    this.renderShape(op.data.startX, op.data.startY, op.data.endX, op.data.endY, op.type, op.data.color, op.data.strokeWidth);
+  } 
+  else if (op.type === 'text') {
+    this.ctx.fillStyle = op.data.color;
+    this.ctx.font = `${op.data.fontSize}px Arial`;
+    this.ctx.fillText(op.data.text, op.data.x, op.data.y);
+  } 
+  else if (op.type === 'image') {
+    if (op.imageObject && op.imageObject.complete) {
+      this.ctx.drawImage(op.imageObject, op.data.x, op.data.y, 50, 50);
+    }    
+    else if (!op.imageObject){
+      const img = new Image();
+      img.onload = () => {this.redraw(); };
+      img.onerror = () => console.error('Image redraw failed for:', op.data.image ? op.data.image.substring(0, 30) + '...' : 'Unknown image');
+      img.src = op.data.image;
+      op.imageObject = img;
     }
   }
-
-  redraw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.history.forEach(op => {
-      if (op.type === 'brush' || op.type === 'eraser') {
-        this.renderPath(op.data.path, op.type, op.data.color, op.data.strokeWidth);
-      } else if (['rectangle', 'circle', 'line'].includes(op.type)) {
-        this.renderShape(op.data.startX, op.data.startY, op.data.endX, op.data.endY, op.type, op.data.color, op.data.strokeWidth);
-      } else if (op.type === 'text') {
-        this.ctx.fillStyle = op.data.color;
-        this.ctx.font = `${op.data.fontSize}px Arial`;
-        this.ctx.fillText(op.data.text, op.data.x, op.data.y);
-      } else if (op.type === 'image') {
-        if (op.imageObject && op.imageObject.complete) {
-          this.ctx.drawImage(op.imageObject, op.data.x, op.data.y, 50, 50);
-        }    
-        else if (!op.imageObject){
-          const img = new Image();
-          img.onload = () => {
-              this.redraw(); 
-          };
-                
-          img.onerror = () => console.error('Image redraw failed for:', op.data.image ? op.data.image.substring(0, 30) + '...' : 'Unknown image');
-          img.src = op.data.image;
-          op.imageObject = img;
-        }
-      }
-    });
-  }
+  });
+}
   
   updateHistory(newHistory) {
     this.history = newHistory;

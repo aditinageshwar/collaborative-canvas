@@ -2,7 +2,7 @@
 
 A real-time multi-user drawing application built with JavaScript, HTML5 Canvas, and Node.js + Socket.io.
 
-## 🔗 Live Application
+## Live Application
 
 **Test it now:** [**https://collaborative-canvas-z91s.onrender.com**](https://collaborative-canvas-z91s.onrender.com)
 
@@ -12,7 +12,7 @@ This guide sets up the application for local development.
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/aditinageshwar/collaborative-canvas.git](https://github.com/aditinageshwar/collaborative-canvas.git)
+    git clone https://github.com/aditinageshwar/collaborative-canvas.git
     cd collaborative-canvas
     ```
 2.  **Install dependencies:**
@@ -27,7 +27,7 @@ This guide sets up the application for local development.
     ```bash
     npm start
     ```
-5.  **Access the App:** Open your browser to `http://localhost:5502`.
+5.  **Access the App:** Open your browser to `http://localhost:5501`.
 
 ## How to Test with Multiple Users
 

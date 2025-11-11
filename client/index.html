@@ -29,12 +29,12 @@
         <aside class="sidebar">
           <h3>Tools</h3>
           <div id="toolbar">
-            <button id="brush" title="Brush Tool"><i class="fas fa-paint-brush"></i> Brush</button>
+            <button id="undo" title="Undo Last Action"><i class="fas fa-undo"></i> Undo</button>
             <button id="eraser" title="Eraser Tool"><i class="fas fa-eraser"></i> Eraser</button>
             <label for="colorPicker">Color: <input type="color" id="colorPicker" value="#000000"></label>
             <label for="strokeWidth">Size: <input type="range" id="strokeWidth" min="1" max="20" value="5"></label>
-            <button id="undo" title="Undo Last Action"><i class="fas fa-undo"></i> Undo</button>
-
+            <button id="brush" title="Brush Tool"><i class="fas fa-paint-brush"></i> Brush</button>
+          
             <button id="rectangle" title="Rectangle Tool"><i class="fas fa-square"></i> Rectangle</button>
             <button id="circle" title="Circle Tool"><i class="fas fa-circle"></i> Circle</button>
             <button id="line" title="Line Tool"><i class="fas fa-minus"></i> Line</button>
@@ -49,7 +49,7 @@
         </aside>
 
          <section class="canvas-section">
-          <canvas id="canvas" width="800" height="600"></canvas>
+          <canvas id="canvas" width="800" height="700"></canvas>
           <p class="instructions">Click and drag to draw. Changes sync instantly!</p>
         </section>
       </div>
